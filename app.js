@@ -3,8 +3,14 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.get('/cat', (req, res) => {
-  res.send('From this endpoint you can get cats.')
-});
+app.use(express.static('public'));
+//read the body of http POST/PUT/PATCH/DELETE request
+app.use(express.urlencoded({ extended: false }));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.use('/catinfo', require('./routes/catRoute'));
+
+
+app.listen(3000);
+console.log(`Example app listening on port ${port}!`);
+
+
